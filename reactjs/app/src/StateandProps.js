@@ -31,3 +31,8 @@ class Example extends React.Component {
       }
 
 export default Example
+//props: là obj mô tả element mình tạo ra
+// -React element: sử dụng như với atribute của thẻ HTML
+// 2 props class, for => className, htmlFor
+//- React components: sử dụng như đối số Components, tự do đặt tên
+// Props "key" là key đặc biệt => có thể là bất cứ kiểu dữ liệu gì
