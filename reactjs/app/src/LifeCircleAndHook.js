@@ -1,19 +1,43 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
 function LifeCircleAndHook() {
 	const [count, setCount] = useState(0)
+	const [ava, setAva] = useState()
+
+	const handleAva = (e) => {
+		const file = e.target.files[0]
+		file.preview = URL.createObjectURL(file)
+		setAva(file)
+	}
+
+	useEffect(() => {
+		return() => {
+			ava && URL.revokeObjectURL(ava.preview)
+		}
+	},[ava])
+	//không có useEffect code vẫn chạy nhưng ảnh cũ sẽ bị xóa và khi thay đổi anh mới thì ảnh cũ vẫn còn trong bộ nhớ
+
 	// * useState
 //count: định nghĩa tên của state nó có thể là đơn giá trị hoặc object,.. (là thamg số của useState)
 // setCount: định nghĩa tên function dùng cho việc update state (là thamg số của useState)
 //useState(0) là initialStateValue: là giá trị ban đầu của state = 0
+
+	// * useEffect để quản lý vòng đời của của một component và nó phục vụ chúng ta sử dụng trong
+	//  function component thay vì các lifecycle như trước đây trong class component
+	// cú pháp useEffect(callback, [đối số 2 (không bắt buộc)])
+
+	
 
   return (
     <div>
 	    <button onClick={() => setCount(count + 1)}>+</button>
 	    <span>{count}</span>
 	    <button onClick={() => setCount(count - 1)}>-</button>
+	    <input type="file" onChange={handleAva} />
+	    {ava && (
+		    <img src={ava.preview} width="50%"	alt=""   /> )}
 
     </div>
   )
